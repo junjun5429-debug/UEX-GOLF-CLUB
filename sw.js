@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'uex-golf-club-v10';
+const CACHE_NAME = 'uex-golf-club-v11';
 const ASSETS = ['./', './index.html', './styles.css', './app.js', './manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {

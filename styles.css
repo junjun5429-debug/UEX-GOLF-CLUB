@@ -129,7 +129,8 @@ main { width: min(1120px, 100%); margin: 0 auto; padding: 24px 20px 100px; }
 .member-manage-row:last-child { border-bottom: 0; }
 .member-manage-row small { display: block; margin-top: 2px; color: var(--cp-text-muted); }
 .inactive { opacity: .58; }
-.backup-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
+.settings-actions { display: grid; gap: 10px; min-width: min(340px, 76vw); }
+.settings-actions button { justify-content: flex-start; width: 100%; }
 
 .primary, .secondary, .danger, .text-button, .icon-button { border: 0; border-radius: 8px; font-weight: 700; }
 .primary { padding: 11px 16px; background: var(--cp-accent); color: var(--cp-accent-fg); }

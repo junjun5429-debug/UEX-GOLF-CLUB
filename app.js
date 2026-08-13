@@ -372,11 +372,8 @@ function renderMembers() {
   }).join('');
   target.innerHTML = `
     <div class="page-head"><div><span class="eyebrow">MEMBERS</span><h1>メンバー</h1></div><button class="primary" id="add-member" type="button">＋ メンバーを追加</button></div>
-    <div class="panel">${rows || '<div class="empty-state"><h2>メンバーはいません</h2></div>'}</div>
-    <div class="backup-actions"><button class="secondary" id="member-export" type="button">↓ バックアップ</button><button class="secondary" id="member-import" type="button">↑ 復元</button></div>`;
+    <div class="panel">${rows || '<div class="empty-state"><h2>メンバーはいません</h2></div>'}</div>`;
   $('#add-member').addEventListener('click', () => openMemberDialog());
-  $('#member-export').addEventListener('click', exportBackup);
-  $('#member-import').addEventListener('click', () => $('#import-file').click());
   $$('[data-edit-member]', target).forEach((button) => button.addEventListener('click', () => openMemberDialog(button.dataset.editMember)));
   $$('[data-toggle-member]', target).forEach((button) => button.addEventListener('click', () => toggleMember(button.dataset.toggleMember)));
 }
@@ -545,6 +542,15 @@ $('#home-button').addEventListener('click', () => setView('dashboard'));
 $('#header-add-round').addEventListener('click', () => openRoundDialog());
 $('#fab').addEventListener('click', () => openRoundDialog());
 $('#export-button').addEventListener('click', () => pullSharedData());
+$('#settings-button').addEventListener('click', () => $('#settings-dialog').showModal());
+$('#settings-export').addEventListener('click', () => {
+  $('#settings-dialog').close();
+  exportBackup();
+});
+$('#settings-import').addEventListener('click', () => {
+  $('#settings-dialog').close();
+  $('#import-file').click();
+});
 $('#round-form').addEventListener('submit', saveRound);
 $('#member-form').addEventListener('submit', saveMember);
 $('#round-course').addEventListener('input', scheduleCourseSearch);

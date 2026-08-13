@@ -25,6 +25,7 @@
     </button>
     <div class="header-actions">
       <button class="icon-button" id="export-button" type="button" title="最新データを取得" aria-label="最新データを取得">↻</button>
+      <button class="icon-button" id="settings-button" type="button" title="設定" aria-label="設定を開く">⚙</button>
       <button class="primary compact" id="header-add-round" type="button">＋ ラウンド</button>
     </div>
   </header>
@@ -87,6 +88,17 @@
 
   <dialog id="detail-dialog">
     <div id="round-detail"></div>
+  </dialog>
+
+  <dialog id="settings-dialog">
+    <div class="dialog-head">
+      <div><span class="eyebrow">SETTINGS</span><h2>設定</h2></div>
+      <button class="icon-button subtle" type="button" data-close="settings-dialog" aria-label="閉じる">×</button>
+    </div>
+    <div class="settings-actions">
+      <button class="secondary" id="settings-export" type="button">↓ バックアップを書き出す</button>
+      <button class="secondary" id="settings-import" type="button">↑ バックアップから復元</button>
+    </div>
   </dialog>
 
   <input id="import-file" type="file" accept="application/json,.json" hidden />
