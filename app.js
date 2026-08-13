@@ -310,7 +310,7 @@ function renderDashboard() {
     <div class="summary-grid">
       <div class="summary-card"><span>MEMBERS</span><strong>${activeMembers.length}</strong><small>登録メンバー</small></div>
       <div class="summary-card"><span>ROUNDS</span><strong>${state.rounds.length}</strong><small>登録ラウンド</small></div>
-      <div class="summary-card"><span>CLUB RECORD</span><strong>${clubBest ?? '−'}</strong><small>${clubRecord ? `${escapeHtml(memberById(clubRecord.memberId)?.name || '旧メンバー')} / ${formatDate(clubRecord.date)}` : '記録なし'}</small></div>
+      <div class="summary-card"><span>RECORD</span><strong>${clubBest ?? '−'}</strong><small>${clubRecord ? `${escapeHtml(memberById(clubRecord.memberId)?.name || '旧メンバー')} / ${formatDate(clubRecord.date)}` : '記録なし'}</small></div>
     </div>
     <div class="section-head member-stats-head"><h2>メンバー成績</h2><div class="section-tools"><div class="segmented-control" role="group" aria-label="成績の集計範囲">${rangeOptions.map((option) => `<button type="button" data-stats-range="${option.value}" class="${(statsRoundLimit ?? 'all').toString() === option.value ? 'active' : ''}">${option.label}</button>`).join('')}</div><button class="text-button" data-go="members" type="button">メンバー管理</button></div></div>
     <div class="member-grid">${cards || '<div class="empty-state"><p>アクティブなメンバーはいません。</p></div>'}</div>
