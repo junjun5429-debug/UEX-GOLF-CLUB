@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="UEX ゴルフ部" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>UEX ゴルフ部</title>
+</head>
+<body>
+  <header class="app-header">
+    <button class="brand" id="home-button" type="button" aria-label="ダッシュボードを表示">
+      <span class="brand-mark" aria-hidden="true">⛳</span>
+      <span><strong>UEX ゴルフ部</strong><small>UEX GOLF CLUB</small></span>
+    </button>
+    <div class="header-actions">
+      <button class="icon-button" id="export-button" type="button" title="最新データを取得" aria-label="最新データを取得">↻</button>
+      <button class="primary compact" id="header-add-round" type="button">＋ ラウンド</button>
+    </div>
+  </header>
+
+  <main>
+    <nav class="tabs" aria-label="メインメニュー">
+      <button type="button" data-view="dashboard" class="active">ダッシュボード</button>
+      <button type="button" data-view="rounds">ラウンド履歴</button>
+      <button type="button" data-view="members">メンバー</button>
+    </nav>
+
+    <section id="dashboard-view" class="view"></section>
+    <section id="rounds-view" class="view hidden"></section>
+    <section id="members-view" class="view hidden"></section>
+  </main>
+
+  <button class="fab" id="fab" type="button" title="ラウンドを追加" aria-label="ラウンドを追加">＋</button>
+
+  <dialog id="round-dialog">
+    <form id="round-form" method="dialog">
+      <div class="dialog-head">
+        <div><span class="eyebrow">ROUND</span><h2 id="round-dialog-title">ラウンドを登録</h2></div>
+        <button class="icon-button subtle" type="button" data-close="round-dialog" aria-label="閉じる">×</button>
+      </div>
+      <input id="round-id" type="hidden" />
+      <div class="two-column">
+        <label class="field">プレー日<input id="round-date" type="date" required /></label>
+        <div class="field course-field">
+          <label for="round-course">ゴルフ場</label>
+          <input id="round-course" type="text" maxlength="80" placeholder="コース名" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="course-suggestions" aria-expanded="false" required />
+          <div id="course-suggestions" class="course-suggestions hidden" role="listbox"></div>
+        </div>
+      </div>
+      <div class="score-entry-head"><h3>参加メンバーとスコア</h3><button id="select-all-members" class="text-button" type="button">全員を選択</button></div>
+      <div id="score-entry" class="score-entry"></div>
+      <label class="field">メモ<textarea id="round-notes" maxlength="300" rows="3" placeholder="任意"></textarea></label>
+      <p id="round-error" class="form-error" role="alert"></p>
+      <div class="dialog-actions">
+        <button class="secondary" type="button" data-close="round-dialog">キャンセル</button>
+        <button class="primary" type="submit">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="member-dialog">
+    <form id="member-form" method="dialog">
+      <div class="dialog-head">
+        <div><span class="eyebrow">MEMBER</span><h2 id="member-dialog-title">メンバーを追加</h2></div>
+        <button class="icon-button subtle" type="button" data-close="member-dialog" aria-label="閉じる">×</button>
+      </div>
+      <input id="member-id" type="hidden" />
+      <label class="field">名前<input id="member-name" type="text" maxlength="30" autocomplete="off" required /></label>
+      <p id="member-error" class="form-error" role="alert"></p>
+      <div class="dialog-actions">
+        <button class="secondary" type="button" data-close="member-dialog">キャンセル</button>
+        <button class="primary" type="submit">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="detail-dialog">
+    <div id="round-detail"></div>
+  </dialog>
+
+  <input id="import-file" type="file" accept="application/json,.json" hidden />
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

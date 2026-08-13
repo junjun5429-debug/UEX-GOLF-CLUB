@@ -1,0 +1,10 @@
+{
+  "name": "UEX ゴルフ部",
+  "short_name": "UEX GOLF",
+  "description": "UEX ゴルフ部のラウンド履歴とメンバー成績を管理するアプリ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f4ef",
+  "theme_color": "#b11f4b",
+  "lang": "ja"
+}
