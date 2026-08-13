@@ -76,7 +76,7 @@ button { cursor: pointer; }
   border-bottom: 1px solid var(--cp-border);
 }
 .brand { display: flex; align-items: center; gap: 10px; padding: 0; border: 0; background: transparent; color: var(--cp-text); text-align: left; }
-.brand-mark { display: grid; place-items: center; width: 40px; height: 40px; background: var(--cp-accent); color: var(--cp-accent-fg); border-radius: 10px; font-size: 21px; }
+.brand-mark { display: block; width: 40px; height: 40px; border-radius: 10px; object-fit: cover; }
 .brand strong, .brand small { display: block; }
 .brand strong { font-size: 18px; }
 .brand small { margin-top: 1px; color: var(--cp-text-muted); font-size: 9px; font-weight: 700; }

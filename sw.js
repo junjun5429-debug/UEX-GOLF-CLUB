@@ -1,7 +1,16 @@
 'use strict';
 
-const CACHE_NAME = 'uex-golf-club-v19';
-const ASSETS = ['./', './index.html', './styles.css?v=19', './app.js?v=19', './manifest.webmanifest'];
+const CACHE_NAME = 'uex-golf-club-v20';
+const ASSETS = [
+  './',
+  './index.html',
+  './styles.css?v=20',
+  './app.js?v=20',
+  './manifest.webmanifest',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/apple-touch-icon-180.png',
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)));
