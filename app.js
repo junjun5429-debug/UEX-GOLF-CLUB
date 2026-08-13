@@ -369,7 +369,7 @@ function memberScoreChartHtml(rounds, memberId, memberName) {
   const maxScore = Math.ceil((rawMax + scorePadding) / 5) * 5;
   const scoreRange = Math.max(1, maxScore - minScore);
   const xFor = (index) => padding.left + (chronological.length === 1 ? plotWidth / 2 : (index / (chronological.length - 1)) * plotWidth);
-  const yFor = (score) => padding.top + ((score - minScore) / scoreRange) * plotHeight;
+  const yFor = (score) => padding.top + ((maxScore - score) / scoreRange) * plotHeight;
   const points = scores.map((score, index) => `${xFor(index).toFixed(1)},${yFor(score).toFixed(1)}`).join(' ');
   const guideValues = Array.from({ length: 5 }, (_, index) => Math.round(minScore + (scoreRange * index) / 4));
   const labelIndexes = [...new Set([0, Math.floor((chronological.length - 1) / 2), chronological.length - 1])];
