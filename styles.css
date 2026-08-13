@@ -156,10 +156,16 @@ main { width: min(1120px, 100%); margin: 0 auto; padding: 24px 20px 100px; }
 dialog { width: min(680px, calc(100% - 28px)); max-height: calc(100vh - 28px); padding: 0; overflow: auto; background: var(--cp-surface); color: var(--cp-text); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: var(--cp-shadow); }
 dialog::backdrop { background: var(--cp-overlay); }
 dialog > form, #round-detail { padding: 22px; }
-#member-dialog { width: min(320px, calc(100vw - 32px)); }
-#member-dialog > form { padding: 16px; }
-#member-dialog .dialog-head { margin-bottom: 16px; }
-#member-dialog .field { margin-bottom: 10px; }
+#member-dialog { width: min(280px, calc(100vw - 40px)); border-radius: 12px; }
+#member-dialog > form { padding: 12px; }
+#member-dialog .dialog-head { margin-bottom: 10px; }
+#member-dialog .dialog-head h2 { font-size: 18px; }
+#member-dialog .dialog-head .icon-button { width: 32px; height: 32px; }
+#member-dialog .field { margin-bottom: 4px; }
+#member-dialog .field input { margin-top: 4px; padding: 8px 10px; }
+#member-dialog .form-error { min-height: 12px; font-size: 11px; }
+#member-dialog .dialog-actions { margin-top: 6px; }
+#member-dialog .dialog-actions button { padding: 8px 12px; }
 #settings-dialog { width: min(420px, calc(100% - 28px)); padding: 22px; overflow: hidden; }
 #settings-dialog .dialog-head { margin-bottom: 16px; }
 .dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
@@ -223,8 +229,8 @@ dialog > form, #round-detail { padding: 22px; }
   .two-column { grid-template-columns: 1fr; gap: 0; }
   dialog { width: calc(100% - 16px); max-height: calc(100vh - 16px); }
   dialog > form, #round-detail { padding: 18px; }
-  #member-dialog { width: min(320px, calc(100vw - 32px)); }
-  #member-dialog > form { padding: 16px; }
+  #member-dialog { width: min(280px, calc(100vw - 40px)); }
+  #member-dialog > form { padding: 12px; }
   #settings-dialog { width: calc(100% - 28px); padding: 18px; }
   .member-manage-row { grid-template-columns: minmax(0, 1fr) auto auto; }
 }
