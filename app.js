@@ -4,6 +4,7 @@ const STORAGE_KEY = 'uex-golf-club:v1';
 const SUPABASE_URL = 'https://qqzrvdscnwdmpdrqdqtz.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KZgbYMI3wmd4KE2FVyW_Xg_TH04wI69';
 const SHARED_ROW_ID = 'uex-golf-club-scorebook';
+const MEMBER_DISPLAY_ORDER = ['吉田', '浅野', '中島', '玉井', '亀井', '中森'];
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 const uid = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
@@ -120,6 +121,14 @@ function formatDate(value) {
 
 function memberById(id) {
   return state.members.find((member) => member.id === id);
+}
+
+function membersInDisplayOrder(members = state.members) {
+  const priority = new Map(MEMBER_DISPLAY_ORDER.map((name, index) => [name, index]));
+  return members
+    .map((member, index) => ({ member, index }))
+    .sort((a, b) => (priority.get(a.member.name) ?? MEMBER_DISPLAY_ORDER.length) - (priority.get(b.member.name) ?? MEMBER_DISPLAY_ORDER.length) || a.index - b.index)
+    .map(({ member }) => member);
 }
 
 function sortedRounds() {
@@ -275,7 +284,7 @@ function render() {
 
 function renderDashboard() {
   const target = $('#dashboard-view');
-  const activeMembers = state.members.filter((member) => member.active !== false);
+  const activeMembers = membersInDisplayOrder().filter((member) => member.active !== false);
   const allResults = sortedRounds().flatMap((round) => Object.entries(round.scores).map(([memberId, score]) => ({ roundId: round.id, memberId, score: Number(score), date: round.date })));
   const allScores = allResults.map((result) => result.score).filter((score) => score > 0);
   const clubBest = allScores.length ? Math.min(...allScores) : null;
@@ -420,7 +429,7 @@ function openMemberHistory(memberId) {
 
 function renderMembers() {
   const target = $('#members-view');
-  const rows = state.members.map((member) => {
+  const rows = membersInDisplayOrder().map((member) => {
     const stats = statsForMember(member.id);
     const status = member.active === false ? '休止中' : `${stats.count}ラウンド / BEST ${stats.best ?? '−'}`;
     return `<div class="member-manage-row ${member.active === false ? 'inactive' : ''}">
@@ -475,10 +484,11 @@ function toggleMember(memberId) {
 }
 
 function openRoundDialog(roundId = '') {
-  const activeMembers = state.members.filter((member) => member.active !== false);
+  const orderedMembers = membersInDisplayOrder();
+  const activeMembers = orderedMembers.filter((member) => member.active !== false);
   const round = roundId ? state.rounds.find((item) => item.id === roundId) : null;
   const availableMembers = round
-    ? state.members.filter((member) => member.active !== false || round.scores[member.id] != null)
+    ? orderedMembers.filter((member) => member.active !== false || round.scores[member.id] != null)
     : activeMembers;
   if (!availableMembers.length) {
     setView('members');
