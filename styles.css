@@ -93,7 +93,10 @@ main { width: min(1120px, 100%); margin: 0 auto; padding: 24px 20px 100px; }
 .eyebrow { color: var(--cp-accent); font-size: 10px; font-weight: 800; }
 .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
 .summary-card, .member-card, .panel, .round-row, .empty-state { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; }
-.summary-card { padding: 18px; }
+.summary-card { width: 100%; padding: 18px; color: var(--cp-text); text-align: left; font: inherit; cursor: pointer; }
+.summary-card:hover { border-color: var(--cp-border-strong); }
+.summary-card:focus-visible { outline: 2px solid var(--cp-accent); outline-offset: 2px; }
+.summary-card:disabled { cursor: default; }
 .summary-card span { display: block; color: var(--cp-text-muted); font-size: 12px; }
 .summary-card strong { display: block; margin-top: 6px; font-size: 30px; line-height: 1; }
 .summary-card small { color: var(--cp-text-soft); }
