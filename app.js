@@ -11,6 +11,7 @@ const today = () => new Date().toISOString().slice(0, 10);
 
 let state = loadState();
 let currentView = 'dashboard';
+let statsRoundLimit = null;
 let courseSearchTimer = null;
 let courseSearchController = null;
 let courseDirectoryPromise = null;
@@ -131,8 +132,9 @@ function scoresForMember(memberId) {
     .filter((score) => Number.isFinite(score) && score > 0);
 }
 
-function statsForMember(memberId) {
-  const rounds = sortedRounds().filter((round) => Number(round.scores[memberId]) > 0);
+function statsForMember(memberId, roundLimit = null) {
+  const memberRounds = sortedRounds().filter((round) => Number(round.scores[memberId]) > 0);
+  const rounds = roundLimit ? memberRounds.slice(0, roundLimit) : memberRounds;
   const scores = rounds.map((round) => Number(round.scores[memberId]));
   return {
     count: scores.length,
@@ -288,7 +290,7 @@ function renderDashboard() {
   }
 
   const cards = activeMembers.map((member) => {
-    const stats = statsForMember(member.id);
+    const stats = statsForMember(member.id, statsRoundLimit);
     return `<button type="button" class="member-card" data-member-history="${member.id}" aria-label="${escapeHtml(member.name)}のラウンド履歴を表示">
       <span class="member-count">${stats.count} ROUNDS</span><div class="member-name">${escapeHtml(member.name)}</div>
       <div class="score-pair"><div><span>BEST</span><strong>${stats.best ?? '−'}</strong></div><div><span>AVERAGE</span><strong>${stats.average == null ? '−' : stats.average.toFixed(1)}</strong></div></div>
@@ -297,6 +299,12 @@ function renderDashboard() {
   }).join('');
 
   const recent = sortedRounds().slice(0, 5);
+  const rangeOptions = [
+    { value: 'all', label: '全成績' },
+    { value: '20', label: '直近20' },
+    { value: '10', label: '直近10' },
+    { value: '5', label: '直近5' },
+  ];
   target.innerHTML = `
     <div class="page-head"><div><span class="eyebrow">CLUB SCORE BOOK</span><h1>ダッシュボード</h1></div><button class="primary" id="dashboard-add-round" type="button">＋ ラウンドを追加</button></div>
     <div class="summary-grid">
@@ -304,11 +312,15 @@ function renderDashboard() {
       <div class="summary-card"><span>ROUNDS</span><strong>${state.rounds.length}</strong><small>登録ラウンド</small></div>
       <div class="summary-card"><span>CLUB RECORD</span><strong>${clubBest ?? '−'}</strong><small>${clubRecord ? `${escapeHtml(memberById(clubRecord.memberId)?.name || '旧メンバー')} / ${formatDate(clubRecord.date)}` : '記録なし'}</small></div>
     </div>
-    <div class="section-head"><h2>メンバー成績</h2><button class="text-button" data-go="members" type="button">メンバー管理</button></div>
+    <div class="section-head member-stats-head"><h2>メンバー成績</h2><div class="section-tools"><div class="segmented-control" role="group" aria-label="成績の集計範囲">${rangeOptions.map((option) => `<button type="button" data-stats-range="${option.value}" class="${(statsRoundLimit ?? 'all').toString() === option.value ? 'active' : ''}">${option.label}</button>`).join('')}</div><button class="text-button" data-go="members" type="button">メンバー管理</button></div></div>
     <div class="member-grid">${cards || '<div class="empty-state"><p>アクティブなメンバーはいません。</p></div>'}</div>
     <div class="section-head"><h2>最近のラウンド</h2><button class="text-button" data-go="rounds" type="button">すべて表示</button></div>
     ${recent.length ? `<div class="round-list">${recent.map(roundRowHtml).join('')}</div>` : '<div class="empty-state"><h2>ラウンドはまだありません</h2><p>最初のスコアを登録しましょう。</p></div>'}`;
   $('#dashboard-add-round').addEventListener('click', () => openRoundDialog());
+  $$('[data-stats-range]', target).forEach((button) => button.addEventListener('click', () => {
+    statsRoundLimit = button.dataset.statsRange === 'all' ? null : Number(button.dataset.statsRange);
+    renderDashboard();
+  }));
   $$('[data-member-history]', target).forEach((button) => button.addEventListener('click', () => openMemberHistory(button.dataset.memberHistory)));
   bindRoundRows(target);
   $$('[data-go]', target).forEach((button) => button.addEventListener('click', () => setView(button.dataset.go)));
@@ -539,7 +551,6 @@ async function importBackup(file) {
 
 $$('.tabs button').forEach((button) => button.addEventListener('click', () => setView(button.dataset.view)));
 $('#home-button').addEventListener('click', () => setView('dashboard'));
-$('#header-add-round').addEventListener('click', () => openRoundDialog());
 $('#fab').addEventListener('click', () => openRoundDialog());
 $('#export-button').addEventListener('click', () => pullSharedData());
 $('#settings-button').addEventListener('click', () => $('#settings-dialog').showModal());
