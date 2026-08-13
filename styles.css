@@ -202,6 +202,15 @@ dialog > form, #round-detail { padding: 22px; }
 .history-summary div { padding: 12px; background: var(--cp-surface-soft); border-radius: 8px; text-align: center; }
 .history-summary span { display: block; color: var(--cp-text-muted); font-size: 10px; }
 .history-summary strong { display: block; margin-top: 3px; font-size: 22px; }
+.history-range { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.history-range h3 { margin: 0; font-size: 14px; }
+.score-chart { width: 100%; margin-bottom: 14px; overflow: hidden; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: 10px; }
+.score-chart svg { display: block; width: 100%; height: auto; min-height: 180px; }
+.chart-guide line { stroke: var(--cp-border); stroke-width: 1; }
+.chart-guide text, .chart-date { fill: var(--cp-text-muted); font-size: 10px; }
+.chart-guide text { text-anchor: end; }
+.chart-line { fill: none; stroke: var(--cp-accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.chart-point circle { fill: var(--cp-surface); stroke: var(--cp-accent); stroke-width: 3; }
 .member-history-list { display: grid; gap: 7px; }
 .member-history-row { display: grid; grid-template-columns: 1fr auto 14px; align-items: center; gap: 12px; width: 100%; padding: 11px 12px; background: var(--cp-surface); color: var(--cp-text); border: 1px solid var(--cp-border); border-radius: 8px; text-align: left; }
 .member-history-row:hover { border-color: var(--cp-border-strong); }
@@ -235,5 +244,8 @@ dialog > form, #round-detail { padding: 22px; }
   #member-dialog { width: min(280px, calc(100vw - 40px)); }
   #member-dialog > form { padding: 12px; }
   #settings-dialog { width: calc(100% - 28px); padding: 18px; }
+  .history-range { align-items: flex-start; flex-direction: column; }
+  .history-range .segmented-control { width: 100%; }
+  .history-range .segmented-control button { flex: 1; }
   .member-manage-row { grid-template-columns: minmax(0, 1fr) auto auto; }
 }

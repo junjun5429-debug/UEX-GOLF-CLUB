@@ -1,7 +1,7 @@
 'use strict';
 
-const CACHE_NAME = 'uex-golf-club-v18';
-const ASSETS = ['./', './index.html', './styles.css?v=18', './app.js?v=18', './manifest.webmanifest'];
+const CACHE_NAME = 'uex-golf-club-v19';
+const ASSETS = ['./', './index.html', './styles.css?v=19', './app.js?v=19', './manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)));
