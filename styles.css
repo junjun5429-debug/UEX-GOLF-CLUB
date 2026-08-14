@@ -207,6 +207,7 @@ dialog > form, #round-detail { padding: 22px; }
 .score-chart svg { display: block; width: 100%; height: auto; }
 .chart-guide line { stroke: var(--cp-border); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .chart-guide text, .chart-date { fill: var(--cp-text-muted); font-size: 12px; }
+.chart-guide text { text-anchor: end; }
 .chart-line { fill: none; stroke: var(--cp-accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .chart-point circle { fill: var(--cp-accent); stroke: var(--cp-surface); stroke-width: 2; vector-effect: non-scaling-stroke; }
 .member-history-list { display: grid; gap: 7px; }
