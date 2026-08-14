@@ -4,6 +4,9 @@ const STORAGE_KEY = 'uex-golf-club:v1';
 const SUPABASE_URL = 'https://qqzrvdscnwdmpdrqdqtz.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KZgbYMI3wmd4KE2FVyW_Xg_TH04wI69';
 const SHARED_ROW_ID = 'uex-golf-club-scorebook';
+const COURSE_API = ['localhost', '127.0.0.1'].includes(location.hostname)
+  ? '/api/course-search'
+  : `${SUPABASE_URL}/functions/v1/course-search`;
 const MEMBER_DISPLAY_ORDER = ['吉田', '浅野', '中島', '玉井', '亀井', '中森'];
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
@@ -235,6 +238,9 @@ async function searchCourseCandidates(query) {
   };
   publish(sortedRounds().map((round) => round.course).filter((name) => matchesCourseQuery(name, query)));
   await Promise.allSettled([
+    fetch(`${COURSE_API}?keyword=${encodeURIComponent(query)}`, { signal })
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => publish((data?.courses || []).map((course) => course.name))),
     loadCourseDirectory(signal).then((names) => publish(names
       .filter((name) => matchesCourseQuery(name, query))
       .filter((name) => coursePattern.test(name) || !/(市|区|町|村|県|府|都|道|郡)$/.test(name))
