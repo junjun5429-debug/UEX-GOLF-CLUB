@@ -203,6 +203,12 @@ dialog > form, #round-detail { padding: 22px; }
 .history-summary div { padding: 12px; background: var(--cp-surface-soft); border-radius: 8px; text-align: center; }
 .history-summary span { display: block; color: var(--cp-text-muted); font-size: 10px; }
 .history-summary strong { display: block; margin-top: 3px; font-size: 22px; }
+.score-chart { margin-bottom: 18px; overflow: hidden; }
+.score-chart svg { display: block; width: 100%; height: auto; }
+.chart-guide line { stroke: var(--cp-border); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.chart-guide text, .chart-date { fill: var(--cp-text-muted); font-size: 12px; }
+.chart-line { fill: none; stroke: var(--cp-accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.chart-point circle { fill: var(--cp-accent); stroke: var(--cp-surface); stroke-width: 2; vector-effect: non-scaling-stroke; }
 .member-history-list { display: grid; gap: 7px; }
 .member-history-row { display: grid; grid-template-columns: 1fr auto 14px; align-items: center; gap: 12px; width: 100%; padding: 11px 12px; background: var(--cp-surface); color: var(--cp-text); border: 1px solid var(--cp-border); border-radius: 8px; text-align: left; }
 .member-history-row:hover { border-color: var(--cp-border-strong); }
