@@ -1,15 +1,15 @@
 'use strict';
 
-const CACHE_NAME = 'uex-golf-club-v22';
+const CACHE_NAME = 'uex-golf-club-v23';
 const ASSETS = [
   './',
   './index.html',
   './styles.css?v=22',
   './app.js?v=22',
-  './manifest.webmanifest?v=22',
-  './icons/apple-touch-icon-180.png?v=22',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
+  './manifest.webmanifest?v=23',
+  './icons/apple-touch-icon-180.png?v=23',
+  './icons/icon-192.png?v=23',
+  './icons/icon-512.png?v=23',
 ];
 
 self.addEventListener('install', (event) => {
