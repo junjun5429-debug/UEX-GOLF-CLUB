@@ -81,6 +81,14 @@ button { cursor: pointer; }
 .brand strong { font-size: 18px; }
 .brand small { margin-top: 1px; color: var(--cp-text-muted); font-size: 9px; font-weight: 700; }
 .header-actions { display: flex; align-items: center; gap: 8px; }
+.sync-button { display: flex; align-items: center; gap: 8px; min-height: 42px; padding: 6px 12px; background: var(--cp-accent); color: var(--cp-accent-fg); border: 0; border-radius: 8px; text-align: left; }
+.sync-button:hover { background: var(--cp-accent-hover); }
+.sync-button:focus-visible { outline: 2px solid var(--cp-accent); outline-offset: 2px; }
+.sync-icon { font-size: 20px; line-height: 1; }
+.sync-copy strong, .sync-copy small { display: block; }
+.sync-copy strong { font-size: 12px; }
+.sync-copy small { margin-top: 1px; font-size: 9px; opacity: .82; }
+.sync-label-compact { display: none; }
 
 main { width: min(1120px, 100%); margin: 0 auto; padding: 24px 20px 100px; }
 .tabs { display: flex; gap: 4px; width: fit-content; margin-bottom: 28px; padding: 4px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: 10px; }
@@ -223,6 +231,17 @@ dialog > form, #round-detail { padding: 22px; }
 .toast.show { transform: translate(-50%, 0); opacity: 1; }
 
 @media (max-width: 680px) {
+  .app-header { gap: 8px; padding-inline: 14px; }
+  .brand { gap: 8px; }
+  .brand-mark { width: 36px; height: 36px; }
+  .brand strong { font-size: 15px; }
+  .brand small { display: none; }
+  .header-actions { gap: 6px; }
+  .sync-button { min-height: 38px; padding: 6px 9px; }
+  .sync-copy strong { font-size: 11px; }
+  .sync-label-full { display: none; }
+  .sync-label-compact { display: inline; }
+  .sync-copy small { display: none; }
   main { padding: 16px 14px 90px; }
   .tabs { width: 100%; margin-bottom: 22px; }
   .tabs button { flex: 1; padding-inline: 5px; }

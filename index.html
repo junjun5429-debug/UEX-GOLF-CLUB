@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png?v=24" />
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-180.png?v=23" />
   <link rel="manifest" href="manifest.webmanifest?v=23" />
-  <link rel="stylesheet" href="styles.css?v=26" />
+  <link rel="stylesheet" href="styles.css?v=29" />
   <title>UEX ゴルフ部</title>
 </head>
 <body>
@@ -18,7 +18,10 @@
       <span><strong>UEX ゴルフ部</strong><small>UEX GOLF CLUB</small></span>
     </button>
     <div class="header-actions">
-      <button class="icon-button" id="export-button" type="button" title="最新データを取得" aria-label="最新データを取得">↻</button>
+      <button class="sync-button" id="export-button" type="button">
+        <span class="sync-icon" aria-hidden="true">↻</span>
+        <span class="sync-copy"><strong><span class="sync-label-full">最新データを取得</span><span class="sync-label-compact">最新へ更新</span></strong><small>表示前に更新してください</small></span>
+      </button>
       <button class="icon-button" id="settings-button" type="button" title="設定" aria-label="設定を開く">⚙</button>
     </div>
   </header>
