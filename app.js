@@ -7,6 +7,10 @@ const SHARED_ROW_ID = 'uex-golf-club-scorebook';
 const COURSE_API = ['localhost', '127.0.0.1'].includes(location.hostname)
   ? '/api/course-search'
   : `${SUPABASE_URL}/functions/v1/course-search`;
+const COURSE_SOURCES = '登録履歴 / Wikipedia / © OpenStreetMap contributors';
+const RAKUTEN_ATTRIBUTION = `<!-- Rakuten Web Services Attribution Snippet FROM HERE -->
+<a href="https://developers.rakuten.com/" target="_blank">Supported by Rakuten Developers</a>
+<!-- Rakuten Web Services Attribution Snippet TO HERE -->`;
 const MEMBER_DISPLAY_ORDER = ['吉田', '浅野', '中島', '玉井', '亀井', '中森'];
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
@@ -170,8 +174,10 @@ function setCourseSuggestions(names, searching = false) {
   if (searching) {
     list.innerHTML = '<div class="course-searching">候補を検索中...</div>';
   } else {
-    list.innerHTML = names.map((name) => `<button type="button" class="course-suggestion" role="option">${escapeHtml(name)}</button>`).join('')
-      + (names.length ? '<div class="course-source">登録履歴 / Wikipedia / © OpenStreetMap contributors</div>' : '');
+    const options = names.map((name) => `<button type="button" class="course-suggestion" role="option" aria-selected="false">${escapeHtml(name)}</button>`).join('');
+    list.innerHTML = names.length
+      ? `<div class="course-option-list">${options}</div><div class="course-source"><span>${COURSE_SOURCES}</span>${RAKUTEN_ATTRIBUTION}</div>`
+      : '';
   }
   const visible = searching || names.length > 0;
   list.classList.toggle('hidden', !visible);
