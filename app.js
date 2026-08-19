@@ -11,7 +11,6 @@ const COURSE_SOURCES = '登録履歴 / Wikipedia / © OpenStreetMap contributors
 const RAKUTEN_ATTRIBUTION = `<!-- Rakuten Web Services Attribution Snippet FROM HERE -->
 <a href="https://developers.rakuten.com/" target="_blank">Supported by Rakuten Developers</a>
 <!-- Rakuten Web Services Attribution Snippet TO HERE -->`;
-const MEMBER_DISPLAY_ORDER = ['吉田', '浅野', '中島', '玉井', '亀井', '中森'];
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 const uid = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
@@ -128,14 +127,6 @@ function formatDate(value) {
 
 function memberById(id) {
   return state.members.find((member) => member.id === id);
-}
-
-function membersInDisplayOrder(members = state.members) {
-  const priority = new Map(MEMBER_DISPLAY_ORDER.map((name, index) => [name, index]));
-  return members
-    .map((member, index) => ({ member, index }))
-    .sort((a, b) => (priority.get(a.member.name) ?? MEMBER_DISPLAY_ORDER.length) - (priority.get(b.member.name) ?? MEMBER_DISPLAY_ORDER.length) || a.index - b.index)
-    .map(({ member }) => member);
 }
 
 function sortedRounds() {
@@ -296,7 +287,7 @@ function render() {
 
 function renderDashboard() {
   const target = $('#dashboard-view');
-  const activeMembers = membersInDisplayOrder().filter((member) => member.active !== false);
+  const activeMembers = state.members.filter((member) => member.active !== false);
   const allResults = sortedRounds().flatMap((round) => Object.entries(round.scores).map(([memberId, score]) => ({ roundId: round.id, memberId, score: Number(score), date: round.date })));
   const allScores = allResults.map((result) => result.score).filter((score) => score > 0);
   const clubBest = allScores.length ? Math.min(...allScores) : null;
@@ -374,74 +365,27 @@ function bindRoundRows(root) {
   $$('[data-round-id]', root).forEach((button) => button.addEventListener('click', () => openRoundDetail(button.dataset.roundId)));
 }
 
-function memberScoreChartHtml(rounds, memberId, memberName) {
-  if (!rounds.length) return '';
-  const chronological = [...rounds].reverse();
-  const scores = chronological.map((round) => Number(round.scores[memberId]));
-  const width = 600;
-  const height = 220;
-  const padding = { top: 20, right: 18, bottom: 38, left: 42 };
-  const plotWidth = width - padding.left - padding.right;
-  const plotHeight = height - padding.top - padding.bottom;
-  const rawMin = Math.min(...scores);
-  const rawMax = Math.max(...scores);
-  const scorePadding = Math.max(3, Math.ceil((rawMax - rawMin) * 0.12));
-  const minScore = Math.floor((rawMin - scorePadding) / 5) * 5;
-  const maxScore = Math.ceil((rawMax + scorePadding) / 5) * 5;
-  const scoreRange = Math.max(1, maxScore - minScore);
-  const xFor = (index) => padding.left + (chronological.length === 1 ? plotWidth / 2 : (index / (chronological.length - 1)) * plotWidth);
-  const yFor = (score) => padding.top + ((maxScore - score) / scoreRange) * plotHeight;
-  const points = scores.map((score, index) => `${xFor(index).toFixed(1)},${yFor(score).toFixed(1)}`).join(' ');
-  const guideValues = Array.from({ length: 5 }, (_, index) => Math.round(minScore + (scoreRange * index) / 4));
-  const labelIndexes = [...new Set([0, Math.floor((chronological.length - 1) / 2), chronological.length - 1])];
-
-  return `<div class="score-chart" role="img" aria-label="${escapeHtml(memberName)}のスコア推移">
-    <svg viewBox="0 0 ${width} ${height}" aria-hidden="true">
-      ${guideValues.map((score) => `<g class="chart-guide"><line x1="${padding.left}" y1="${yFor(score).toFixed(1)}" x2="${width - padding.right}" y2="${yFor(score).toFixed(1)}"></line><text x="${padding.left - 8}" y="${(yFor(score) + 4).toFixed(1)}">${score}</text></g>`).join('')}
-      <polyline class="chart-line" points="${points}"></polyline>
-      ${scores.map((score, index) => `<g class="chart-point"><circle cx="${xFor(index).toFixed(1)}" cy="${yFor(score).toFixed(1)}" r="4"></circle><title>${formatDate(chronological[index].date)} ${score}</title></g>`).join('')}
-      ${labelIndexes.map((index) => `<text class="chart-date" x="${xFor(index).toFixed(1)}" y="${height - 10}" text-anchor="${index === 0 ? 'start' : index === chronological.length - 1 ? 'end' : 'middle'}">${escapeHtml(chronological[index].date.replaceAll('-', '/'))}</text>`).join('')}
-    </svg>
-  </div>`;
-}
-
 function openMemberHistory(memberId) {
   const member = memberById(memberId);
   if (!member) return;
-  const allRounds = sortedRounds().filter((round) => Number(round.scores[memberId]) > 0);
-  const detail = $('#round-detail');
-
-  function renderHistory(roundLimit = null) {
-    const rounds = roundLimit ? allRounds.slice(0, roundLimit) : allRounds;
-    const scores = rounds.map((round) => Number(round.scores[memberId]));
-    const stats = {
-      count: scores.length,
-      best: scores.length ? Math.min(...scores) : null,
-      average: scores.length ? scores.reduce((sum, score) => sum + score, 0) / scores.length : null,
-    };
-    const ranges = [{ value: 'all', label: '全成績' }, { value: '10', label: '直近10' }, { value: '5', label: '直近5' }];
-    detail.innerHTML = `
-      <div class="dialog-head"><div><span class="eyebrow">MEMBER HISTORY</span><h2>${escapeHtml(member.name)}</h2></div><button class="icon-button subtle" type="button" data-detail-close aria-label="閉じる">×</button></div>
-      <div class="history-range"><h3>スコア推移</h3><div class="segmented-control" role="group" aria-label="表示する成績の範囲">${ranges.map((range) => `<button type="button" data-history-range="${range.value}" class="${(roundLimit ?? 'all').toString() === range.value ? 'active' : ''}">${range.label}</button>`).join('')}</div></div>
-      ${memberScoreChartHtml(rounds, memberId, member.name)}
-      <div class="history-summary"><div><span>BEST</span><strong>${stats.best ?? '−'}</strong></div><div><span>AVERAGE</span><strong>${stats.average == null ? '−' : stats.average.toFixed(1)}</strong></div><div><span>ROUNDS</span><strong>${stats.count}</strong></div></div>
-      ${rounds.length ? `<div class="member-history-list">${rounds.map((round) => `<button type="button" class="member-history-row" data-history-round="${round.id}"><span><strong>${formatDate(round.date)}</strong><small>${escapeHtml(round.course)}</small></span><b>${Number(round.scores[memberId])}</b><i>›</i></button>`).join('')}</div>` : '<div class="empty-state"><p>ラウンド履歴はありません。</p></div>'}
-      <div class="dialog-actions"><button class="secondary" type="button" data-detail-close>閉じる</button></div>`;
-    $$('[data-detail-close]', detail).forEach((button) => button.addEventListener('click', () => $('#detail-dialog').close()));
-    $$('[data-history-range]', detail).forEach((button) => button.addEventListener('click', () => renderHistory(button.dataset.historyRange === 'all' ? null : Number(button.dataset.historyRange))));
-    $$('[data-history-round]', detail).forEach((button) => button.addEventListener('click', () => {
-      $('#detail-dialog').close();
-      openRoundDetail(button.dataset.historyRound);
-    }));
-  }
-
-  renderHistory();
+  const stats = statsForMember(memberId);
+  const rounds = sortedRounds().filter((round) => Number(round.scores[memberId]) > 0);
+  $('#round-detail').innerHTML = `
+    <div class="dialog-head"><div><span class="eyebrow">MEMBER HISTORY</span><h2>${escapeHtml(member.name)}</h2></div><button class="icon-button subtle" type="button" data-detail-close aria-label="閉じる">×</button></div>
+    <div class="history-summary"><div><span>BEST</span><strong>${stats.best ?? '−'}</strong></div><div><span>AVERAGE</span><strong>${stats.average == null ? '−' : stats.average.toFixed(1)}</strong></div><div><span>ROUNDS</span><strong>${stats.count}</strong></div></div>
+    ${rounds.length ? `<div class="member-history-list">${rounds.map((round) => `<button type="button" class="member-history-row" data-history-round="${round.id}"><span><strong>${formatDate(round.date)}</strong><small>${escapeHtml(round.course)}</small></span><b>${Number(round.scores[memberId])}</b><i>›</i></button>`).join('')}</div>` : '<div class="empty-state"><p>ラウンド履歴はありません。</p></div>'}
+    <div class="dialog-actions"><button class="secondary" type="button" data-detail-close>閉じる</button></div>`;
+  $$('[data-detail-close]', $('#round-detail')).forEach((button) => button.addEventListener('click', () => $('#detail-dialog').close()));
+  $$('[data-history-round]', $('#round-detail')).forEach((button) => button.addEventListener('click', () => {
+    $('#detail-dialog').close();
+    openRoundDetail(button.dataset.historyRound);
+  }));
   $('#detail-dialog').showModal();
 }
 
 function renderMembers() {
   const target = $('#members-view');
-  const rows = membersInDisplayOrder().map((member) => {
+  const rows = state.members.map((member) => {
     const stats = statsForMember(member.id);
     const status = member.active === false ? '休止中' : `${stats.count}ラウンド / BEST ${stats.best ?? '−'}`;
     return `<div class="member-manage-row ${member.active === false ? 'inactive' : ''}">
@@ -496,11 +440,10 @@ function toggleMember(memberId) {
 }
 
 function openRoundDialog(roundId = '') {
-  const orderedMembers = membersInDisplayOrder();
-  const activeMembers = orderedMembers.filter((member) => member.active !== false);
+  const activeMembers = state.members.filter((member) => member.active !== false);
   const round = roundId ? state.rounds.find((item) => item.id === roundId) : null;
   const availableMembers = round
-    ? orderedMembers.filter((member) => member.active !== false || round.scores[member.id] != null)
+    ? state.members.filter((member) => member.active !== false || round.scores[member.id] != null)
     : activeMembers;
   if (!availableMembers.length) {
     setView('members');

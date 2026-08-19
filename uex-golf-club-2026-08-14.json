@@ -1,0 +1,267 @@
+{
+  "app": "UEX-GOLF-CLUB",
+  "exportedAt": "2026-08-14T00:26:54.352Z",
+  "data": {
+    "version": 1,
+    "members": [
+      {
+        "id": "msr7enkumjt58l",
+        "name": "吉田",
+        "active": true,
+        "createdAt": "2026-08-13T07:35:43.326Z"
+      },
+      {
+        "id": "msr7hvh3srdg1m",
+        "name": "中島",
+        "active": true,
+        "createdAt": "2026-08-13T07:38:13.527Z"
+      },
+      {
+        "id": "msr7jcalb0mk8n",
+        "name": "玉井",
+        "active": true,
+        "createdAt": "2026-08-13T07:39:21.981Z"
+      },
+      {
+        "id": "msr7jfmgsr5aav",
+        "name": "浅野",
+        "active": true,
+        "createdAt": "2026-08-13T07:39:26.296Z"
+      },
+      {
+        "id": "msr7jtkqasrwn3",
+        "name": "亀井",
+        "active": true,
+        "createdAt": "2026-08-13T07:39:44.378Z"
+      },
+      {
+        "id": "msr7jwob8pu1zi",
+        "name": "中森",
+        "active": true,
+        "createdAt": "2026-08-13T07:39:48.395Z"
+      }
+    ],
+    "rounds": [
+      {
+        "id": "msr7f2gavtt0qk",
+        "date": "2026-08-01",
+        "notes": "一人予約",
+        "course": "君津香木原カントリークラブ",
+        "scores": {
+          "msr7enkumjt58l": 103
+        },
+        "updatedAt": "2026-08-13T07:56:00.752Z"
+      },
+      {
+        "id": "msr7gxr3n4o7f0",
+        "date": "2026-07-24",
+        "notes": "ゴルフぐるーぶ (柴谷、江田、松田)",
+        "course": "川崎国際生田緑地ゴルフ場",
+        "scores": {
+          "msr7enkumjt58l": 110
+        },
+        "updatedAt": "2026-08-13T10:05:03.949Z"
+      },
+      {
+        "id": "msr7ia1qi3pejq",
+        "date": "2026-07-12",
+        "notes": "",
+        "course": "ラ・ヴィスタゴルフリゾート",
+        "scores": {
+          "msr7enkumjt58l": 112,
+          "msr7hvh3srdg1m": 111
+        },
+        "updatedAt": "2026-08-13T07:56:19.818Z"
+      },
+      {
+        "id": "msr7kut7d2g168",
+        "date": "2026-07-04",
+        "notes": "",
+        "course": "クリアビューゴルフクラブ",
+        "scores": {
+          "msr7enkumjt58l": 105,
+          "msr7jcalb0mk8n": 107
+        },
+        "updatedAt": "2026-08-13T07:57:05.621Z"
+      },
+      {
+        "id": "msr7m5xxaw8qtb",
+        "date": "2026-05-17",
+        "notes": "",
+        "course": "琉球ゴルフ倶楽部",
+        "scores": {
+          "msr7enkumjt58l": 112,
+          "msr7hvh3srdg1m": 119,
+          "msr7jcalb0mk8n": 119,
+          "msr7jfmgsr5aav": 107
+        },
+        "updatedAt": "2026-08-13T07:57:19.422Z"
+      },
+      {
+        "id": "msr7n1n1b14mkf",
+        "date": "2026-05-16",
+        "notes": "",
+        "course": "ザ・サザンリンクス",
+        "scores": {
+          "msr7enkumjt58l": 124,
+          "msr7hvh3srdg1m": 109,
+          "msr7jcalb0mk8n": 121,
+          "msr7jfmgsr5aav": 110
+        },
+        "updatedAt": "2026-08-13T08:03:26.87Z"
+      },
+      {
+        "id": "msr7nztajoxfrp",
+        "date": "2026-05-02",
+        "notes": "",
+        "course": "アクアラインゴルフクラブ",
+        "scores": {
+          "msr7enkumjt58l": 119,
+          "msr7hvh3srdg1m": 106,
+          "msr7jcalb0mk8n": 120,
+          "msr7jfmgsr5aav": 111
+        },
+        "updatedAt": "2026-08-13T08:03:48.256Z"
+      },
+      {
+        "id": "msr87m0duq3u77",
+        "date": "2026-03-22",
+        "notes": "地元",
+        "course": "名岐国際ゴルフクラブ",
+        "scores": {
+          "msr7enkumjt58l": 127
+        },
+        "updatedAt": "2026-08-13T07:58:14.317Z"
+      },
+      {
+        "id": "msr88u7gbbv7op",
+        "date": "2026-03-21",
+        "notes": "地元",
+        "course": "菰野倶楽部ジャック・ニクラウスゴルフコース",
+        "scores": {
+          "msr7enkumjt58l": 121
+        },
+        "updatedAt": "2026-08-13T07:59:24.992Z"
+      },
+      {
+        "id": "msr8a1guk89550",
+        "date": "2026-03-13",
+        "notes": "ゴルフぐるーぶ (柴谷、江田、松田)",
+        "course": "小田原城カントリー倶楽部",
+        "scores": {
+          "msr7enkumjt58l": 118
+        },
+        "updatedAt": "2026-08-13T10:05:18.260Z"
+      },
+      {
+        "id": "msr8bpl2st3e2b",
+        "date": "2026-03-12",
+        "notes": "ゴルフぐるーぶ (柴谷、江田、松田)",
+        "course": "小田原城カントリー倶楽部",
+        "scores": {
+          "msr7enkumjt58l": 109
+        },
+        "updatedAt": "2026-08-13T10:05:23.900Z"
+      },
+      {
+        "id": "msr8cx1224qnxr",
+        "date": "2026-02-15",
+        "notes": "",
+        "course": "四街道ゴルフ倶楽部",
+        "scores": {
+          "msr7enkumjt58l": 104,
+          "msr7hvh3srdg1m": 98,
+          "msr7jcalb0mk8n": 113,
+          "msr7jfmgsr5aav": 100
+        },
+        "updatedAt": "2026-08-13T08:02:21.878Z"
+      },
+      {
+        "id": "msr8ol6mkvvc2j",
+        "date": "2026-01-17",
+        "notes": "",
+        "course": "ベルセルバカントリークラブ市原コース",
+        "scores": {
+          "msr7enkumjt58l": 97,
+          "msr7jcalb0mk8n": 119
+        },
+        "updatedAt": "2026-08-13T08:11:26.398Z"
+      },
+      {
+        "id": "msr8pxaj37cno1",
+        "date": "2025-12-13",
+        "notes": "片岡、沖",
+        "course": "岡部チサンカントリークラブ",
+        "scores": {
+          "msr7enkumjt58l": 111,
+          "msr7jfmgsr5aav": 107
+        },
+        "updatedAt": "2026-08-13T08:12:28.747Z"
+      },
+      {
+        "id": "msr8qv2ngct7a3",
+        "date": "2025-11-22",
+        "notes": "地元",
+        "course": "シーダーヒルズカントリークラブ",
+        "scores": {
+          "msr7enkumjt58l": 114
+        },
+        "updatedAt": "2026-08-13T08:13:12.527Z"
+      },
+      {
+        "id": "msr8tngbug35fm",
+        "date": "2025-11-02",
+        "notes": "",
+        "course": "スカイウェイカントリークラブ",
+        "scores": {
+          "msr7enkumjt58l": 116,
+          "msr7hvh3srdg1m": 111,
+          "msr7jcalb0mk8n": 120,
+          "msr7jfmgsr5aav": 109
+        },
+        "updatedAt": "2026-08-13T08:15:22.619Z"
+      },
+      {
+        "id": "msr8utzem0z6ed",
+        "date": "2025-10-20",
+        "notes": "ゴルフぐるーぶ (柴谷、江田、松田)",
+        "course": "西東京ゴルフ倶楽部",
+        "scores": {
+          "msr7enkumjt58l": 103
+        },
+        "updatedAt": "2026-08-13T10:05:36.193Z"
+      },
+      {
+        "id": "msr8vt0wwgv73c",
+        "date": "2025-10-12",
+        "notes": "地元",
+        "course": "サンクラシックゴルフクラブ",
+        "scores": {
+          "msr7enkumjt58l": 98
+        },
+        "updatedAt": "2026-08-13T08:17:03.152Z"
+      },
+      {
+        "id": "msr8xdpurra1rk",
+        "date": "2026-01-09",
+        "notes": "高山、沖、柴谷",
+        "course": "習志野カントリークラブ",
+        "scores": {
+          "msr7enkumjt58l": 129
+        },
+        "updatedAt": "2026-08-13T08:18:16.626Z"
+      },
+      {
+        "id": "msr8yad2ixtjaz",
+        "date": "2025-09-20",
+        "notes": "片岡",
+        "course": "成田の森カントリークラブ",
+        "scores": {
+          "msr7enkumjt58l": 108,
+          "msr7jfmgsr5aav": 102
+        },
+        "updatedAt": "2026-08-13T08:18:58.934Z"
+      }
+    ]
+  }
+}
