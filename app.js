@@ -367,6 +367,7 @@ function renderDashboard() {
 
 function renderCourseViewer() {
   const target = $('#course-view');
+  const holeSelectorScrollLeft = $('.viewer-hole-selector', target)?.scrollLeft ?? 0;
   const { courses, selectedCourse, layout, holes, selectedHole, loading, message, error } = courseViewerState;
   const courseIndexes = [...new Set(holes.map((hole) => hole.courseIndex))];
   const courseNames = layout?.courseName?.split(/[・,、/]/).map((name) => name.trim()).filter(Boolean) || [];
@@ -404,6 +405,8 @@ function renderCourseViewer() {
       <aside class="course-viewer-sidebar"><form id="viewer-search-form"><label for="viewer-search">ゴルフ場名</label><div><input id="viewer-search" value="${escapeHtml(courseViewerState.query)}" placeholder="例: 武蔵丘" autocomplete="off"><button class="primary" type="submit" ${loading ? 'disabled' : ''}>検索</button></div></form><p class="viewer-search-message">${escapeHtml(message)}</p><div class="viewer-results">${results}</div></aside>
       <section class="course-viewer-stage">${stage}</section>
     </div>`;
+  const holeSelector = $('.viewer-hole-selector', target);
+  if (holeSelector) holeSelector.scrollLeft = holeSelectorScrollLeft;
   $('#course-view-back').addEventListener('click', () => setView('dashboard'));
   $('#viewer-search-form').addEventListener('submit', searchViewerCourses);
   $$('#course-view [data-viewer-course]').forEach((button) => button.addEventListener('click', () => chooseViewerCourse(button.dataset.viewerCourse)));

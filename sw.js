@@ -1,11 +1,11 @@
 'use strict';
 
-const CACHE_NAME = 'uex-golf-club-v32';
+const CACHE_NAME = 'uex-golf-club-v33';
 const ASSETS = [
   './',
   './index.html',
   './styles.css?v=32',
-  './app.js?v=27',
+  './app.js?v=28',
   './manifest.webmanifest?v=23',
   './icons/favicon-32.png?v=24',
   './icons/apple-touch-icon-180.png?v=23',
